@@ -4,6 +4,7 @@ import net.lovholm.oslobysykkel.api.dto.StasjonsstatusResponse;
 import net.lovholm.oslobysykkel.api.dto.StasjonstatusDto;
 import net.lovholm.oslobysykkel.domene.modell.Stasjon;
 import net.lovholm.oslobysykkel.domene.tjeneste.Stasjonstjeneste;
+import net.lovholm.oslobysykkel.motor.Oppdaterertjeneste;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,14 +17,18 @@ import java.util.stream.Collectors;
 public class StasjonstatusApi {
 
     private final Stasjonstjeneste stasjonstjeneste;
+    private final Oppdaterertjeneste oppdaterertjeneste;
 
-    public StasjonstatusApi(@Autowired Stasjonstjeneste stasjonstjeneste) {
+    @Autowired
+    public StasjonstatusApi(Stasjonstjeneste stasjonstjeneste, Oppdaterertjeneste oppdaterertjeneste) {
         this.stasjonstjeneste = stasjonstjeneste;
+        this.oppdaterertjeneste = oppdaterertjeneste;
     }
 
 
     @GetMapping("/")
     public StasjonsstatusResponse getStasjonsstatus() {
+        oppdaterertjeneste.oppdaterStasjonsstatus();
         var response = new StasjonsstatusResponse();
         response.setStasjoner(
                 stasjonstjeneste.hentAlleStasjoner().stream().map(this::mapStasjonsstatusDtoFraStasjon).collect(Collectors.toList()
