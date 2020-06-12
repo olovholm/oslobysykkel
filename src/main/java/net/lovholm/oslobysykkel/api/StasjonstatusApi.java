@@ -6,10 +6,9 @@ import net.lovholm.oslobysykkel.domene.modell.Stasjon;
 import net.lovholm.oslobysykkel.domene.tjeneste.Stasjonstjeneste;
 import net.lovholm.oslobysykkel.oppdaterer.Oppdaterertjeneste;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.stream.Collectors;
 
 @RestController
@@ -27,7 +26,11 @@ public class StasjonstatusApi {
 
 
     @GetMapping("/")
-    public StasjonsstatusResponse getStasjonsstatus() {
+    public StasjonsstatusResponse getStasjonsstatus(
+            HttpServletRequest request,
+            @RequestParam(name = "lon", required = false) String lon,
+            @RequestParam(name = "lat", required = false) String lat,
+            @RequestParam(name = "antall", required = false) String antall) {
         oppdaterertjeneste.oppdaterStasjonsstatus();
         var response = new StasjonsstatusResponse();
         response.setStasjoner(
