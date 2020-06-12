@@ -4,7 +4,7 @@ import net.lovholm.oslobysykkel.api.dto.StasjonsstatusResponse;
 import net.lovholm.oslobysykkel.api.dto.StasjonstatusDto;
 import net.lovholm.oslobysykkel.domene.modell.Stasjon;
 import net.lovholm.oslobysykkel.domene.tjeneste.Stasjonstjeneste;
-import net.lovholm.oslobysykkel.motor.Oppdaterertjeneste;
+import net.lovholm.oslobysykkel.oppdaterer.Oppdaterertjeneste;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +35,6 @@ public class StasjonstatusApi {
                 ));
         return response;
     }
-
 
     private StasjonstatusDto mapStasjonsstatusDtoFraStasjon(Stasjon stasjon) {
         return new StasjonstatusDto(

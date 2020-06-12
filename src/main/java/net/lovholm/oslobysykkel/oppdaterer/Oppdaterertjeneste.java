@@ -1,4 +1,4 @@
-package net.lovholm.oslobysykkel.motor;
+package net.lovholm.oslobysykkel.oppdaterer;
 
 
 import net.lovholm.oslobysykkel.domene.tjeneste.Stasjonstjeneste;
