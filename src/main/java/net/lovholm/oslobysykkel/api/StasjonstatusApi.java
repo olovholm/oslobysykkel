@@ -28,14 +28,16 @@ public class StasjonstatusApi {
     @GetMapping("/")
     public StasjonsstatusResponse getStasjonsstatus(
             HttpServletRequest request,
-            @RequestParam(name = "lon", required = false) String lon,
-            @RequestParam(name = "lat", required = false) String lat,
-            @RequestParam(name = "antall", required = false) String antall) {
+            @RequestParam(name = "lon", required = false) Double lon,
+            @RequestParam(name = "lat", required = false) Double lat,
+            @RequestParam(name = "antall", required = false) Integer antall) {
+
+
         oppdaterertjeneste.oppdaterStasjonsstatus();
         var response = new StasjonsstatusResponse();
         response.setStasjoner(
                 stasjonstjeneste.hentAlleStasjoner().stream().map(this::mapStasjonsstatusDtoFraStasjon).collect(Collectors.toList()
-                ));
+                ).subList(0,antall));
         return response;
     }
 
@@ -44,6 +46,7 @@ public class StasjonstatusApi {
                 stasjon.getStasjonsId(),
                 stasjon.getNavn(),
                 stasjon.getAdresse(),
+                null, //TODO: Mappe inn avstand
                 stasjon.getLat(),
                 stasjon.getLon(),
                 stasjon.getKapasitet(),

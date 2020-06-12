@@ -47,7 +47,7 @@ public class Stasjonstjeneste {
         return new Stasjon(
                 stationInformation.getStationId(),
                 stationInformation.getName(),
-                null,
+                stationInformation.getAddress(),
                 stationInformation.getLat(),
                 stationInformation.getLon(),
                 stationInformation.getCapacity()
