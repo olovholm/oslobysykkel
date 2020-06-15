@@ -28,19 +28,21 @@ public class StasjonstatusApi {
     }
 
 
-    @GetMapping("/")
+    @GetMapping("stasjonstatus/")
     public StasjonsstatusResponse getStasjonsstatus(
             HttpServletRequest request,
             @RequestParam(name = "lon", required = false) Double lon,
             @RequestParam(name = "lat", required = false) Double lat,
-            @RequestParam(name = "antall", required = false) Integer antall) {
+            @RequestParam(name = "antall", required = false, defaultValue = "20") Integer antall) {
 
 
         oppdaterertjeneste.oppdaterStasjonsstatus();
         var response = new StasjonsstatusResponse();
-        response.setStasjoner(
-                stasjonstjeneste.hentAlleStasjoner().stream().map(this::mapStasjonsstatusDtoFraStasjon).collect(Collectors.toList()
-                ).subList(0,antall));
+        var stasjoner = stasjonstjeneste.hentAlleStasjoner().stream().map(this::mapStasjonsstatusDtoFraStasjon).collect(Collectors.toList());
+        if(stasjoner.size() >= antall){
+          stasjoner =  stasjoner.subList(0,antall);
+        }
+        response.setStasjoner(stasjoner);
         return response;
     }
 

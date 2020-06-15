@@ -37,9 +37,9 @@ public class Oppdaterertjeneste {
 
     public void oppdaterStasjonsstatus() {
         if(SIST_OPPDATERT_STATUS.isBefore(LocalDateTime.now().minusSeconds(VENTETID_SEKUNDER_OPPDATERING_STASJONSSTATUS))) {
+            stasjonstjeneste.oppdaterStasjonerMedStatusInformasjon();
             SIST_OPPDATERT_STATUS = LocalDateTime.now();
             log.debug("Oppdaterer status");
-            stasjonstjeneste.oppdaterStasjonerMedStatusInformasjon();
         } else {
             log.debug("Henter ikke inn stasjonsstatus på nytt");
         }
