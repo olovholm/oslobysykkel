@@ -19,7 +19,7 @@ function appendStationElement(parentElement, stasjon) {
 var lastStasjonerUtenPosisjon = function () {
     $.ajax({
         type: 'GET',
-        url: encodeURI(`http://localhost:8080/api/`),
+        url: encodeURI(`http://localhost:8080/api/stasjonstatus/`),
         dataType: 'json',
         success: function (data) {
             $.each(data.stasjoner, function (index, element) {
@@ -34,7 +34,7 @@ var lastStasjonerMedPosisjon = function (minPosisjon) {
     console.log("Last med posisjon");
     $.ajax({
         type: 'GET',
-        url: encodeURI(`http://localhost:8080/api/?lon=${minPosisjon.lon}&lat=${minPosisjon.lat}&antall=20`),
+        url: encodeURI(`http://localhost:8080/api/stasjonstatus/?lon=${minPosisjon.lon}&lat=${minPosisjon.lat}&antall=20`),
         dataType: 'json',
         success: function (data) {
             $.each(data.stasjoner, function (index, element) {
