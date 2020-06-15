@@ -1,5 +1,6 @@
 package net.lovholm.oslobysykkel.domene.tjeneste;
 
+import net.lovholm.oslobysykkel.domene.modell.Posisjon;
 import net.lovholm.oslobysykkel.domene.modell.Stasjon;
 import net.lovholm.oslobysykkel.domene.repository.Stasjonsrepository;
 import net.lovholm.oslobysykkel.integrasjon.oslobysykkel.klient.GBFSLoadService;
@@ -8,6 +9,8 @@ import net.lovholm.oslobysykkel.integrasjon.oslobysykkel.modell.StationStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,6 +36,16 @@ public class Stasjonstjeneste {
         return stasjonsrepository.getStasjoner();
     }
 
+    public List<Stasjon> hentNærmesteStasjoner(double lat, double lon) {
+        Posisjon posisjon = new Posisjon(lat,lon);
+        List<Stasjon> stasjoner = stasjonsrepository.getStasjoner().sort(Comparator.comparingDouble(() -> Stasjon::getPosisjon()));
+        for(Stasjon s : stasjoner){
+            System.out.println(s.getNavn());
+            System.out.println(s.getPosisjon().distanseFra(posisjon));
+        }
+        return new ArrayList<>();
+    }
+
     public void oppdaterStasjonerMedStatusInformasjon(){
         List<StationStatus> stasjonstatuser = gbfsLoadService.getStationStatus();
         for(StationStatus stationStatus : stasjonstatuser){
@@ -47,9 +60,11 @@ public class Stasjonstjeneste {
         return new Stasjon(
                 stationInformation.getStationId(),
                 stationInformation.getName(),
-                null,
-                stationInformation.getLat(),
-                stationInformation.getLon(),
+                stationInformation.getAddress(),
+                new Posisjon(
+                    stationInformation.getLat(),
+                    stationInformation.getLon()
+                        ),
                 stationInformation.getCapacity()
         );
     }
