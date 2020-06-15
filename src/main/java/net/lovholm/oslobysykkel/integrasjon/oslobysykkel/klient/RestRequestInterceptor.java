@@ -25,7 +25,7 @@ public class RestRequestInterceptor implements ClientHttpRequestInterceptor {
             byte[] body,
             ClientHttpRequestExecution execution) throws IOException {
 
-        request.getHeaders().add("Client-Identifier",clientIdentifier);
+        request.getHeaders().add("Client-Identifier", clientIdentifier);
         ClientHttpResponse response = execution.execute(request, body);
 
         var statusCode = response.getStatusCode();

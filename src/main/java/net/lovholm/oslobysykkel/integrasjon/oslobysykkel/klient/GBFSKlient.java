@@ -1,6 +1,6 @@
 package net.lovholm.oslobysykkel.integrasjon.oslobysykkel.klient;
 
-import net.lovholm.oslobysykkel.integrasjon.oslobysykkel.modell.GBFSFeed;
+import net.lovholm.oslobysykkel.integrasjon.oslobysykkel.gbfs_modell.GBFSFeed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

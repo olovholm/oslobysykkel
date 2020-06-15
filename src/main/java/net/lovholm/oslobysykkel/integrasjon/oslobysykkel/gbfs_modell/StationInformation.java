@@ -1,4 +1,4 @@
-package net.lovholm.oslobysykkel.integrasjon.oslobysykkel.modell;
+package net.lovholm.oslobysykkel.integrasjon.oslobysykkel.gbfs_modell;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
