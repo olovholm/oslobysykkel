@@ -2,16 +2,14 @@ package net.lovholm.oslobysykkel.domene.modell;
 
 import java.time.LocalDateTime;
 
-public class Stasjon {
+public class Stasjon extends Base {
         private String stasjonsId;
         private String navn;
         private String adresse;
         private Integer kapasitet;
-        private Integer antallLedigeLåser;
-        private Integer antallLedigeSykler;
         private Posisjon posisjon;
-        private LocalDateTime sistOppdatertStatus;
-        private LocalDateTime sistOppdatertStasjonsinformasjon;
+        private Status status;
+
 
         public Stasjon(){}
 
@@ -21,7 +19,6 @@ public class Stasjon {
                 this.adresse = adresse;
                 this.posisjon = posisjon;
                 this.kapasitet = kapasitet;
-                this.sistOppdatertStasjonsinformasjon = LocalDateTime.now();
         }
 
         public String getStasjonsId() {
@@ -42,30 +39,13 @@ public class Stasjon {
                 return kapasitet;
         }
 
-        public Integer getAntallLedigeLåser() {
-                return antallLedigeLåser;
+        public Status getStatus() {
+                return status;
         }
 
-        public Integer getAntallLedigeSykler() {
-                return antallLedigeSykler;
+        public void setStatus(Status status){
+                super.setOppdatert(LocalDateTime.now());
+                this.status = status;
         }
-
-        public LocalDateTime getSistOppdatertStatus() {
-                return sistOppdatertStatus;
-        }
-
-        public LocalDateTime getSistOppdatertStasjonsinformasjon() {
-                return sistOppdatertStasjonsinformasjon;
-        }
-
-
-
-        public void oppdaterStasjonstatus(Integer antallLedigeLåser, Integer antallLedigeSykler){
-                this.sistOppdatertStatus = LocalDateTime.now();
-                this.antallLedigeLåser = antallLedigeLåser;
-                this.antallLedigeSykler = antallLedigeSykler;
-        }
-
-
 
 }

@@ -6,7 +6,10 @@ import net.lovholm.oslobysykkel.domene.modell.Stasjon;
 import net.lovholm.oslobysykkel.domene.tjeneste.Stasjonstjeneste;
 import net.lovholm.oslobysykkel.oppdaterer.Oppdaterertjeneste;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.stream.Collectors;
@@ -47,11 +50,11 @@ public class StasjonstatusApi {
                 stasjon.getNavn(),
                 stasjon.getAdresse(),
                 null, //TODO: Mappe inn avstand
-                stasjon.getLat(),
-                stasjon.getLon(),
+                stasjon.getPosisjon().getLat(),
+                stasjon.getPosisjon().getLon(),
                 stasjon.getKapasitet(),
-                stasjon.getAntallLedigeLåser(),
-                stasjon.getAntallLedigeSykler()
+                stasjon.getStatus().getAntallLedigeLåser(),
+                stasjon.getStatus().getAntallLedigeSykler()
         );
     }
 

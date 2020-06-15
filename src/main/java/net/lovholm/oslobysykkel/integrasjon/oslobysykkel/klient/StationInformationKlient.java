@@ -1,6 +1,6 @@
 package net.lovholm.oslobysykkel.integrasjon.oslobysykkel.klient;
 
-import net.lovholm.oslobysykkel.integrasjon.oslobysykkel.modell.StationInformationFeed;
+import net.lovholm.oslobysykkel.integrasjon.oslobysykkel.gbfs_modell.StationInformationFeed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;

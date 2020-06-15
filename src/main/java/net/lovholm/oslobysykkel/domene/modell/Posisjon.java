@@ -2,7 +2,7 @@ package net.lovholm.oslobysykkel.domene.modell;
 
 import net.lovholm.oslobysykkel.domene.Haversine;
 
-public class Posisjon {
+public class Posisjon extends Base {
     private final Double lat;
     private final Double lon;
 
