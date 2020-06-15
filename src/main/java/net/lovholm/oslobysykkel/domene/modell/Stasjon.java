@@ -3,25 +3,23 @@ package net.lovholm.oslobysykkel.domene.modell;
 import java.time.LocalDateTime;
 
 public class Stasjon {
-        String stasjonsId;
-        String navn;
-        String adresse;
-        Double lat;
-        Double lon;
-        Integer kapasitet;
-        Integer antallLedigeLåser;
-        Integer antallLedigeSykler;
-        LocalDateTime sistOppdatertStatus;
-        LocalDateTime sistOppdatertStasjonsinformasjon;
+        private String stasjonsId;
+        private String navn;
+        private String adresse;
+        private Integer kapasitet;
+        private Integer antallLedigeLåser;
+        private Integer antallLedigeSykler;
+        private Posisjon posisjon;
+        private LocalDateTime sistOppdatertStatus;
+        private LocalDateTime sistOppdatertStasjonsinformasjon;
 
         public Stasjon(){}
 
-        public Stasjon(String stasjonsId, String navn, String adresse, Double lat, Double lon, Integer kapasitet) {
+        public Stasjon(String stasjonsId, String navn, String adresse, Posisjon posisjon, Integer kapasitet) {
                 this.stasjonsId = stasjonsId;
                 this.navn = navn;
                 this.adresse = adresse;
-                this.lat = lat;
-                this.lon = lon;
+                this.posisjon = posisjon;
                 this.kapasitet = kapasitet;
                 this.sistOppdatertStasjonsinformasjon = LocalDateTime.now();
         }
@@ -38,13 +36,7 @@ public class Stasjon {
                 return adresse;
         }
 
-        public Double getLat() {
-                return lat;
-        }
-
-        public Double getLon() {
-                return lon;
-        }
+        public Posisjon getPosisjon(){ return posisjon;}
 
         public Integer getKapasitet() {
                 return kapasitet;

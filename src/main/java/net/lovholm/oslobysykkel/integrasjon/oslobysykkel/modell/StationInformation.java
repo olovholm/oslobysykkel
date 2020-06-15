@@ -12,6 +12,8 @@ public class StationInformation {
     private String name;
     @JsonProperty("short_name")
     private String shortName;
+    @JsonProperty("address")
+    private String address;
     @JsonProperty("lat")
     private String lat;
     @JsonProperty("lon")
@@ -31,6 +33,10 @@ public class StationInformation {
 
     public String getShortName() {
         return shortName;
+    }
+
+    public String getAddress() {
+        return address;
     }
 
     public Double getLat() {
