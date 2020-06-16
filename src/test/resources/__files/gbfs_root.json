@@ -1,0 +1,18 @@
+{
+  "data":{
+    "nb":{
+      "feeds":[
+        {
+          "url":"http://localhost:10000/station_information.json",
+          "name":"station_information"
+        },
+        {
+          "url":"http://localhost:10000/station_status.json",
+          "name":"station_status"
+        }
+      ]
+    }
+  },
+  "ttl":10,
+  "last_updated":1553592630
+}

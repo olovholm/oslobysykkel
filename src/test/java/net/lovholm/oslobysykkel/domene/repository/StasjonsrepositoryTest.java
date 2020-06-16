@@ -26,23 +26,32 @@ public class StasjonsrepositoryTest {
     }
 
     @Test
-    public void kanSetteStasjonerIBolk(){
+    public void skalKunneSetteStasjonerIBolk(){
         List<Stasjon> stasjonList = Arrays.asList(STASJON_1,STASJON_2,STASJON_3);
         stasjonsrepository.settStasjoner(stasjonList);
         assertThat("Stasjonsrepository skal kunne sette alle stasjoner",stasjonsrepository.getStasjonerCopy(), hasItems(STASJON_1,STASJON_2,STASJON_3));
     }
 
     @Test
-    public void kanSetteStasjonerEnkeltvis(){
+    public void skalKunneSetteStasjonerEnkeltvis(){
         stasjonsrepository.leggTilStasjon(STASJON_1);
         assertThat("Enkeltstasjon skal kunne legges til stasjonsrepository", stasjonsrepository.getStasjonerCopy(),hasItem(STASJON_1));
     }
 
     @Test
-    public void kanHenteStasjonBasertPåId(){
+    public void skalKunneHenteStasjonBasertPåId(){
         stasjonsrepository.leggTilStasjon(STASJON_1);
         stasjonsrepository.leggTilStasjon(STASJON_2);
         var stasjon = stasjonsrepository.getStasjonById(STASJON_2.getStasjonsId()).get();
         assertThat("Skal kunne finne stasjon basert på stasjonsId", stasjon, sameInstance(STASJON_2));
+    }
+
+    @Test
+    public void skalKunneEndreHentetListeUtenAtOpprinneligListeEndres(){
+        stasjonsrepository.settStasjoner(Arrays.asList(STASJON_1,STASJON_2,STASJON_3));
+        List<Stasjon> stasjonsListeMuteres = stasjonsrepository.getStasjonerCopy();
+        stasjonsListeMuteres.add(new Stasjon("43","Test","Adresse",null,0));
+        List<Stasjon> stasjonsListeNyinnhentet = stasjonsrepository.getStasjonerCopy();
+        assertThat("Opprinnelig liste skal ikke kunne muteres etter uthenting",stasjonsListeNyinnhentet.size(),equalTo(3));
     }
 }
