@@ -1,4 +1,4 @@
-package net.lovholm.oslobysykkel.large_tests;
+package net.lovholm.oslobysykkel.integration;
 
 import net.lovholm.oslobysykkel.api.dto.StasjonsstatusResponse;
 import org.junit.jupiter.api.Test;
@@ -18,6 +18,7 @@ class OslobysykkelApplicationTests {
 
     @Autowired
     private TestRestTemplate restTemplate;
+
 
     //TODO: Smartify
    @Test

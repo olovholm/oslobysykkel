@@ -4,18 +4,16 @@ public class StasjonstatusDto {
     private String stasjonsId;
     private String navn;
     private String adresse;
-    private Integer avstand;
     private Double lat;
     private Double lon;
     private Integer kapasitet;
     private Integer antallLedigeLåser;
     private Integer antallLedigeSykler;
 
-    public StasjonstatusDto(String stasjonsId, String navn, String adresse, Integer avstand, Double lat, Double lon, Integer kapasitet, Integer antallLedigeLåser, Integer antallLedigeSykler) {
+    public StasjonstatusDto(String stasjonsId, String navn, String adresse, Double lat, Double lon, Integer kapasitet, Integer antallLedigeLåser, Integer antallLedigeSykler) {
         this.stasjonsId = stasjonsId;
         this.navn = navn;
         this.adresse = adresse;
-        this.avstand = avstand;
         this.lat = lat;
         this.lon = lon;
         this.kapasitet = kapasitet;
@@ -45,14 +43,6 @@ public class StasjonstatusDto {
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
-    }
-
-    public Integer getAvstand() {
-        return avstand;
-    }
-
-    public void setAvstand(Integer avstand) {
-        this.avstand = avstand;
     }
 
     public Double getLat() {

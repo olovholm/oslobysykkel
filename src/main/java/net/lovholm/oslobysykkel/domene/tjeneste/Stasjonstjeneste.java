@@ -10,7 +10,7 @@ import net.lovholm.oslobysykkel.integrasjon.oslobysykkel.klient.GBFSLoadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,17 +33,13 @@ public class Stasjonstjeneste {
     }
 
     public List<Stasjon> hentAlleStasjoner(){
-        return stasjonsrepository.getStasjoner();
+        return stasjonsrepository.getStasjonerCopy();
     }
 
-    public List<Stasjon> hentNærmesteStasjoner(double lat, double lon) {
-        Posisjon posisjon = new Posisjon(lat,lon);
-        List<Stasjon> stasjoner = stasjonsrepository.getStasjoner();
-        for(Stasjon s : stasjoner){
-            System.out.println(s.getNavn());
-            System.out.println(s.getPosisjon().distanseFra(posisjon));
-        }
-        return new ArrayList<>();
+    public List<Stasjon> hentNærmesteStasjoner(Posisjon posisjon) {
+        List<Stasjon> stasjoner = stasjonsrepository.getStasjonerCopy();
+        stasjoner.sort(Comparator.comparingDouble(p-> p.getPosisjon().distanseFra(posisjon)));
+        return stasjoner;
     }
 
     public void oppdaterStasjonerMedStatusInformasjon(){

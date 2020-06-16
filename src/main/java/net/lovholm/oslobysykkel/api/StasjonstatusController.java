@@ -2,6 +2,7 @@ package net.lovholm.oslobysykkel.api;
 
 import net.lovholm.oslobysykkel.api.dto.StasjonsstatusResponse;
 import net.lovholm.oslobysykkel.api.dto.StasjonstatusDto;
+import net.lovholm.oslobysykkel.domene.modell.Posisjon;
 import net.lovholm.oslobysykkel.domene.modell.Stasjon;
 import net.lovholm.oslobysykkel.domene.tjeneste.Stasjonstjeneste;
 import net.lovholm.oslobysykkel.oppdaterer.Oppdaterertjeneste;
@@ -12,21 +13,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/")
-public class StasjonstatusApi {
+public class StasjonstatusController {
 
     private final Stasjonstjeneste stasjonstjeneste;
     private final Oppdaterertjeneste oppdaterertjeneste;
 
     @Autowired
-    public StasjonstatusApi(Stasjonstjeneste stasjonstjeneste, Oppdaterertjeneste oppdaterertjeneste) {
+    public StasjonstatusController(Stasjonstjeneste stasjonstjeneste, Oppdaterertjeneste oppdaterertjeneste) {
         this.stasjonstjeneste = stasjonstjeneste;
         this.oppdaterertjeneste = oppdaterertjeneste;
     }
-
 
     @GetMapping("stasjonstatus/")
     public StasjonsstatusResponse getStasjonsstatus(
@@ -35,15 +36,29 @@ public class StasjonstatusApi {
             @RequestParam(name = "lat", required = false) Double lat,
             @RequestParam(name = "antall", required = false, defaultValue = "20") Integer antall) {
 
-
         oppdaterertjeneste.oppdaterStasjonsstatus();
-        var response = new StasjonsstatusResponse();
-        var stasjoner = stasjonstjeneste.hentAlleStasjoner().stream().map(this::mapStasjonsstatusDtoFraStasjon).collect(Collectors.toList());
-        if(stasjoner.size() >= antall){
-          stasjoner =  stasjoner.subList(0,antall);
+
+        List<Stasjon> stasjoner = null;
+        if(harPosisjon(lat,lon)){
+            Posisjon posisjon = new Posisjon(lat, lon);
+            stasjoner = stasjonstjeneste.hentNærmesteStasjoner(posisjon);
+        } else {
+            stasjoner = stasjonstjeneste.hentAlleStasjoner();
         }
-        response.setStasjoner(stasjoner);
+
+        var response = new StasjonsstatusResponse();
+        var stasjonsatus = stasjoner.stream().map(this::mapStasjonsstatusDtoFraStasjon).collect(Collectors.toList());
+
+        if(stasjonsatus.size() >= antall){
+            stasjonsatus =  stasjonsatus.subList(0,antall);
+        }
+        response.setStasjoner(stasjonsatus);
         return response;
+    }
+
+
+    private boolean harPosisjon (Double lon, Double lat) {
+        return (lon != null && lat != null);
     }
 
     private StasjonstatusDto mapStasjonsstatusDtoFraStasjon(Stasjon stasjon) {
@@ -51,7 +66,6 @@ public class StasjonstatusApi {
                 stasjon.getStasjonsId(),
                 stasjon.getNavn(),
                 stasjon.getAdresse(),
-                null, //TODO: Mappe inn avstand
                 stasjon.getPosisjon().getLat(),
                 stasjon.getPosisjon().getLon(),
                 stasjon.getKapasitet(),

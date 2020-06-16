@@ -17,8 +17,8 @@ public class Stasjonsrepository {
         stasjoner = Collections.synchronizedList(new ArrayList<>());
     }
 
-    public List<Stasjon> getStasjoner() {
-        return this.stasjoner;
+    public List<Stasjon> getStasjonerCopy() {
+        return new ArrayList<>(stasjoner);
     }
 
     public Optional<Stasjon> getStasjonById(String stasjonsId){

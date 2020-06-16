@@ -1,6 +1,6 @@
 package net.lovholm.oslobysykkel.domene.modell;
 
-public class Status extends Base {
+public final class Status extends Base {
 
     private final Integer antallLedigeSykler;
     private final Integer antallLedigeLåser;

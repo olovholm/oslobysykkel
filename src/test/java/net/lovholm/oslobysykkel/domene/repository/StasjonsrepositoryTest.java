@@ -29,13 +29,13 @@ public class StasjonsrepositoryTest {
     public void kanSetteStasjonerIBolk(){
         List<Stasjon> stasjonList = Arrays.asList(STASJON_1,STASJON_2,STASJON_3);
         stasjonsrepository.settStasjoner(stasjonList);
-        assertThat("Stasjonsrepository skal kunne sette alle stasjoner",stasjonsrepository.getStasjoner(), hasItems(STASJON_1,STASJON_2,STASJON_3));
+        assertThat("Stasjonsrepository skal kunne sette alle stasjoner",stasjonsrepository.getStasjonerCopy(), hasItems(STASJON_1,STASJON_2,STASJON_3));
     }
 
     @Test
     public void kanSetteStasjonerEnkeltvis(){
         stasjonsrepository.leggTilStasjon(STASJON_1);
-        assertThat("Enkeltstasjon skal kunne legges til stasjonsrepository", stasjonsrepository.getStasjoner(),hasItem(STASJON_1));
+        assertThat("Enkeltstasjon skal kunne legges til stasjonsrepository", stasjonsrepository.getStasjonerCopy(),hasItem(STASJON_1));
     }
 
     @Test
