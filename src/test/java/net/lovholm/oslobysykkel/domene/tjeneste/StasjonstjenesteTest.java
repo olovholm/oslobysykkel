@@ -25,7 +25,7 @@ public class StasjonstjenesteTest {
     public void skalKunneHenteAlleStasjoner(){
         GBFSLoadService gbfsLoadService = Mockito.mock(GBFSLoadService.class);
         Stasjonsrepository stasjonsrepository = Mockito.mock(Stasjonsrepository.class);
-        Mockito.when(stasjonsrepository.getStasjoner()).thenReturn(Arrays.asList(STASJON_1,STASJON_2));
+        Mockito.when(stasjonsrepository.getStasjonerCopy()).thenReturn(Arrays.asList(STASJON_1,STASJON_2));
 
         stasjonstjeneste = new Stasjonstjeneste(gbfsLoadService, stasjonsrepository);
         var stasjoner = stasjonstjeneste.hentAlleStasjoner();
