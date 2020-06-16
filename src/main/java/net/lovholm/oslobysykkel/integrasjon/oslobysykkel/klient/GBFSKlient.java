@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 public class GBFSKlient {
     private static final Logger log = LoggerFactory.getLogger(GBFSKlient.class);
     private final RestTemplate restTemplate;
+
     @Value("${oslobysykkel.gbfs.url}")
     private String GBFSRootUrl;
 
